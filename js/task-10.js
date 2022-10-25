@@ -19,33 +19,35 @@ const btnCreate = document.querySelector("button[data-create]");
 const btnDestroy = document.querySelector("button[data-destroy]");
 const boxes = document.querySelector("#boxes");
 
+btnCreate.addEventListener("click", createBox);
+btnDestroy.addEventListener("click", destroyBoxes);
+
+let size = 30;
+
 function getRandomHexColor() {
   return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 }
 
-const createBoxes = (amount) => {
+function createBoxes(amount) {
   const elementsToAdd = [];
   for (let i = 0; i < amount; i++) {
+    size += 10;
     const div = document.createElement("div");
-    div.style.height = `${30 + 10 * i}px`;
-    div.style.width = `${30 + 10 * i}px`;
+    div.style.height = size + "px";
+    div.style.width = size + "px";
     div.style.background = getRandomHexColor();
     elementsToAdd.push(div);
   }
   return elementsToAdd;
-};
+}
 
-const destroyBoxes = () => {
+function destroyBoxes() {
   boxes.innerHTML = "";
-};
+  inputNum.value = "";
+  size = 30;
+}
 
-btnCreate.addEventListener("click", () => {
+function createBox() {
   let boxesToAdd = createBoxes(inputNum.value);
   boxes.append(...boxesToAdd);
-});
-
-console.log(inputNum.value);
-
-btnDestroy.addEventListener("click", () => {
-  destroyBoxes.call();
-});
+}
